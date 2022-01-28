@@ -66,6 +66,9 @@ pub(crate) fn install(
     for dep in dependencies {
         let DependencyInstallOpts { no_git, no_commit, quiet } = opts;
         let path = libs.join(&dep.name);
+        // <root>/lib/<dep.name> is safe to unwrap after the above joins
+        let relative_path = path.strip_prefix(root).unwrap();
+
         p_println!(!quiet => "Installing {} in {:?}, (url: {}, tag: {:?})", dep.name, path, dep.url, dep.tag);
         if no_git {
             install_as_folder(&dep, &path)?;
