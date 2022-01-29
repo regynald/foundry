@@ -69,6 +69,7 @@ pub(crate) fn install(
         // <root>/lib/<dep.name> is safe to unwrap after the above joins
         let relative_path = path.strip_prefix(root).unwrap();
 
+        p_println!(!quiet => "Relative path {:?}", relative_path);
         p_println!(!quiet => "Installing {} in {:?}, (url: {}, tag: {:?})", dep.name, path, dep.url, dep.tag);
         if no_git {
             install_as_folder(&dep, &path)?;
